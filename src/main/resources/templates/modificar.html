@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
       xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Datos de la Persona</title>
-        <meta charset="UTF-8"/>
+     <head th:replace="layout/plantilla :: head">
+        <title>Inicio</title>
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"></header>
@@ -11,8 +10,8 @@
         <h2>[[#{persona.formulario}]]</h2>
         <a th:href="@{/}">[[#{accion.regresar}]]</a>
         <br/>
-        <form th:action="@{/guardar}" method="post" th:object="${persona}">
-            <input type="hidden" name="idPersona" th:field="*{idPersona}"/>
+        <form th:action="@{/guardar}" method="post" th:object="${cliente}">
+            <input type="hidden" name="idPersona" th:field="*{idCliente}"/>
             <br/>
             <label for="nombre">[[#{persona.nombre}]]:</label>
             <input type="text" name="nombre" th:field="*{nombre}"/>
