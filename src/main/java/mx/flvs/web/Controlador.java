@@ -1,12 +1,16 @@
 package mx.flvs.web;
 
+import javax.validation.Valid;
+import mx.flvs.domain.Cliente;
 import mx.flvs.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class Controlador {
@@ -17,35 +21,35 @@ public class Controlador {
     
     @GetMapping("/")
     public String inicio(Model model, @AuthenticationPrincipal User user){
-        var personas = personaService.listarPersonas();
-        model.addAttribute("personas", personas);
+        var clientes = clienteService.listarClientes();
+        model.addAttribute("clientes", clientes);
         return "index";
     }
     
     @GetMapping("/agregar")
-    public String agregar(Persona persona){
+    public String agregar(Cliente cliente){
         return "modificar";
     }
     
     @PostMapping("/guardar")
-    public String guardar(@Valid Persona persona, Errors errores){
+    public String guardar(@Valid Cliente cliente, Errors errores){
         if(errores.hasErrors()){
             return "modificar";
         }
-        personaService.guardar(persona);
+        clienteService.guardar(cliente);
         return "redirect:/";
     }
     
     @GetMapping("/editar/{idPersona}")
-    public String editar(Persona persona, Model model){
-        persona = personaService.encontrarPersona(persona);
-        model.addAttribute("persona", persona);
+    public String editar(Cliente cliente, Model model){
+        cliente = clienteService.findById(cliente);
+        model.addAttribute("cliente", cliente);
         return "modificar";
     }
     
     @GetMapping("/eliminar")
-    public String eliminar(Persona persona){
-        personaService.eliminar(persona);
+    public String eliminar(Cliente cliente){
+        clienteService.eliminar(cliente);
         return "redirect:/";
     }
     
