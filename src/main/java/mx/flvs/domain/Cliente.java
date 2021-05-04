@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -29,10 +30,19 @@ public class Cliente implements Serializable{
     private String apellido;
     
     @NotNull
+    @Email
     private String email;
     
     private String telefono;
     
     @NotNull
     private float saldo;
+    
+    public long getIdCliente(){
+        return this.idCliente;
+    }
+    
+    public void setIdCliente(long idCliente){
+        this.idCliente = idCliente;
+    }
 }
