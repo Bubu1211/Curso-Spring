@@ -8,18 +8,9 @@
     <body>
         
         <header th:replace="layout/plantilla :: header"></header>
-        
-        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}">[[#{persona.crear}]]</a>
-        
-        <div th:if="${personas != null }">
-            <table border="1">
-            </table>
-        </div>
-        <div th:if="${clientes == null}">
-           [[#{persona.lista-vacia}]]
-        </div>
-        
+        <section th:replace="layout/botones_agregar :: botonesAgregar"></section>
+       <!-- <section th:replace="layout/agregar_cliente :: agregarCliente"></section>-->
+        <section th:replace="layout/listado_clientes :: listadoClientes"></section>
         <footer th:replace="layout/plantilla :: footer"></footer>
-        
     </body>
 </html>
