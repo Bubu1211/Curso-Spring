@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org(extras/spring-security">
+    <head>
+        <title>Listado clientes</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <section th:fragment="listadoClientes" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{persona.titulo-list}]]</h4>
+                            </div>
+                            <div th:if="${clientes} != null">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{persona.nombre}"></th>
+                                            <th th:text="#{persona.saldo}"></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="cliente, contador : ${clientes}">
+                                            <td>[[${contador.count}]]</td>
+                                            <td>[[${cliente.nombre} + ' '+${cliente.apellido}]]</td>
+                                            <td>[[${new java.text.DecimalFormat('$#,##0.00').format(cliente.saldo)}]]</td>
+                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <a  th:href="@{/editar(idCliente=${cliente.idCliente})}"  class="btn btn-secondary">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{accion.editar}]]
+                                                </a>
+                                                
+                                            </td>
+                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <a  th:href="@{/eliminar(idCliente=${cliente.idCliente})}"  class="btn btn-dark">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{accion.eliminar}]]
+                                                </a>
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${clientes == null}">
+                                <span th:text="${persona.lista-vacia}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
