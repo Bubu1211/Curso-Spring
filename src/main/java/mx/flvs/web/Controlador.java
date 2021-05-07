@@ -32,11 +32,6 @@ public class Controlador {
         return "index";
     }
     
-    @GetMapping("/agregar")
-    public String agregar(Cliente cliente){
-        return "modificar";
-    }
-    
     @PostMapping("/guardar")
     public String guardar(@Valid Cliente cliente, Errors errores){
         if(errores.hasErrors()){
