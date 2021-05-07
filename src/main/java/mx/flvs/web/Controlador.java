@@ -24,6 +24,11 @@ public class Controlador {
     public String inicio(Model model, @AuthenticationPrincipal User user){
         var clientes = clienteService.listarClientes();
         model.addAttribute("clientes", clientes);
+        var saldoTotal = 0D;
+        for(var p : clientes) 
+            saldoTotal += p.getSaldo();
+        model.addAttribute("saldoTotal",saldoTotal);
+        model.addAttribute("totalClientes", clientes.size());
         return "index";
     }
     
